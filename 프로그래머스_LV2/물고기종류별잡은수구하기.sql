@@ -1,0 +1,14 @@
+SELECT 
+    COUNT(F.ID) AS 'FISH_COUNT',
+    N.FISH_NAME AS 'FISH_NAME'
+FROM 
+    FISH_INFO AS F
+LEFT OUTER JOIN 
+    FISH_NAME_INFO AS N USING (FISH_TYPE)
+GROUP BY
+    N.FISH_NAME -- FISH_TYPE으로 그룹바이x. FISH_NAME이어야 함
+ORDER BY
+    FISH_COUNT DESC
+;
+
+-- 물고기 종류별 개수 구하는 것이지만, 출력에 '종류'는 필요없고, '이름'은 필요함
