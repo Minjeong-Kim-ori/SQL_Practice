@@ -1,7 +1,7 @@
 SELECT 
     DISTINCT CAR_ID, 
     CAR_TYPE, 
-    ROUND(daily_fee * 30 * (1 - discount_rate / 100), 0) AS 'FEE'
+    ROUND(DAILY_FEE * 30 * (1 - DISCOUNT_RATE / 100), 0) AS 'FEE'
 FROM 
     CAR_RENTAL_COMPANY_CAR
 LEFT JOIN 
