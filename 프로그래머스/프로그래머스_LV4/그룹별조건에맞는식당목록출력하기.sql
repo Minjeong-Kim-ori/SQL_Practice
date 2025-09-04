@@ -1,0 +1,28 @@
+WITH REVIEW_COUNTS AS 
+(SELECT 
+    MEMBER_ID, 
+    COUNT(*) AS R_CNT 
+FROM 
+    REST_REVIEW AS R
+GROUP BY 
+    MEMBER_ID)
+
+SELECT
+    M.MEMBER_NAME,
+    R.REVIEW_TEXT,
+    DATE_FORMAT(R.REVIEW_DATE,"%Y-%m-%d") AS 'REVIEW_DATE'
+FROM
+    REST_REVIEW AS R
+JOIN
+    MEMBER_PROFILE AS M
+USING(MEMBER_ID)
+WHERE  
+    R.MEMBER_ID IN (SELECT 
+                        MEMBER_ID 
+                    FROM 
+                        REVIEW_COUNTS
+                    WHERE 
+                        R_CNT IN (SELECT MAX(R_CNT) FROM REVIEW_COUNTS))
+ORDER BY
+    R.REVIEW_DATE, R.REVIEW_TEXT
+;
